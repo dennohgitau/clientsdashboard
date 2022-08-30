@@ -29,7 +29,7 @@ body {
   width: 100%;
   height: 100%;
   grid-gap: 0;
-  grid-template-columns: 300px auto;
+  grid-template-columns: 270px auto;
   grid-template-rows: 80px auto;
   grid-template-areas: 'menu search' 'menu content';
 }
@@ -105,10 +105,10 @@ body {
 
 .menu-wrap {
   grid-area: menu;
-  padding-bottom: 3em;
+  padding-bottom: 3em 0 0 0.1em;
   overflow: auto;
-  background: rgb(255, 255, 255);
-  border-right: 1px solid #ede8f0;
+  background: #ffffff;
+  border-right: 1em solid #ede8f0;
 }
 .menu-wrap .user {
   height: 80px;
@@ -141,11 +141,11 @@ body {
 }
 .menu-wrap nav {
   display: block;
-  padding: 0 3em;
+  padding: 0 1.3em;
 }
 .menu-wrap nav section {
   display: block;
-  padding: 3em 0 0;
+  padding: 3em 1em 0;
 }
 .menu-wrap nav h3 {
   margin: 0;

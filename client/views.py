@@ -2,7 +2,7 @@ import json
 from this import d
 from django.shortcuts import render
 import requests
-from operator import itemgetter
+from itertools import groupby
 
 # Create your views here.
 url = "https://app.mftfulfillmentcentre.com/api/orders"
@@ -22,13 +22,18 @@ response = response.json()
 data =  response.get('data')
 data1 = data[0]
 
+
 def home(request):
-    return render(request, 'index.html')
-
-
-def returns(request):
     index = 0
-    context_arr = []
+    context_arr_scheduled = []
+    context_arr_dispatched = []
+    context_arr_delivered = []
+    context_arr_returned = []
+    scheduled = 'Scheduled'
+    dispatched = 'Inprogress'
+    delivered = 'Delivered'
+    returned = 'Returned'
+
     for items in data:
         client = items.get('client')
         products = data[0].get('products')
@@ -44,7 +49,6 @@ def returns(request):
         delivery_date = items.get('delivery_date')
         total_price = items.get('total_price')
         confirmed = items.get('confirmed')
-
         context1 = {
             'created_at' : created_at,
             'order_no': order_no,
@@ -61,11 +65,88 @@ def returns(request):
         }
 
         index += 1
-        context_arr.append(context1)
-        context = {
-            'data': context_arr,
-            }
+        total_index = index
+        scheduled_index = 0
+        delivered_index = 0
+        returned_index = 0
+        dispatched_index = 0
+        for i in context1:
+            if context1[i] == scheduled:
+                context_arr_scheduled.append(context1)
+            elif context1[i] == delivered:
+                context_arr_delivered.append(context1)
+            elif context1[i] == dispatched:
+                context_arr_dispatched.append(context1)
+            elif context1[i] == returned:
+                context_arr_returned.append(context1)
+
+
+            scheduled_index = len(context_arr_scheduled)
+            delivered_index = len(context_arr_delivered)
+            dispatched_index = len(context_arr_dispatched)
+            returned_index = len(context_arr_returned)
+            context = {
+                'scheduled': scheduled_index,
+                'delivered': delivered_index,
+                'returned': returned_index,
+                'dispatched': dispatched_index,
+                'total': total_index,
+                }   
+
+
+    return render(request, 'index.html', context)
+    
+
+def returns(request):
+    index = 0
+    context_arr = []
+    scheduled = 'Scheduled'
+    
+
+    for items in data:
+        client = items.get('client')
+        products = data[0].get('products')
+            
+        created_at = client.get('created_at')
+        order_no = items.get('order_no')
+        name = client.get('name')
+        client_phone = client.get('phone')
+        client_address = client.get('address')
+        product_name = products[0].get('product_name')  
+        delivery_status = items.get('delivery_status')
+        status = items.get('status')
+        delivery_date = items.get('delivery_date')
+        total_price = items.get('total_price')
+        confirmed = items.get('confirmed')
+        context1 = {
+            'created_at' : created_at,
+            'order_no': order_no,
+            'name': name,
+            'client_phone': client_phone,
+            'client_address': client_address,
+            'product_name': product_name,
+            'delivery_status': delivery_status,
+            'status': status,
+            'delivery_date': delivery_date,
+            'total_price': total_price,
+            'confirmed': confirmed,
+            'index': index,
+        }
+
+        index += 1
+        for i in context1:
+            if context1[i] == scheduled:
+                # context_arr.clear()
+                context_arr.append(context1)
+                context = {
+                    'data': context_arr,
+                } 
+                
+        
+                # print(len(context_arr))
+
     return render(request, 'returns.html', context)
+   
 
 
 def cash(request):
@@ -92,7 +173,6 @@ def cash(request):
         context = {
             'total': total
         }
-        print(total)
     
     return render(request, 'cash.html', context)
     
@@ -131,8 +211,7 @@ def orders(request):
         index += 1
         context_arr.append(context1)
         context = {'data': context_arr} 
-    else:
-        print("No Returns")
+    
     return render(request, 'orders.html', context)
 
 def insights(request):
