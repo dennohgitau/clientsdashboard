@@ -207,6 +207,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  } 
+  .content-wrap .delivered{
+    color: #04010c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  #delivered {
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .content-wrap .content-head h1 {
     font-size: 2.5em;

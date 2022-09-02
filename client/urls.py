@@ -7,6 +7,8 @@ urlpatterns = [
     path('returns', views.returns, name="returns"),
     path('cash', views.cash, name="cash"),
     path('insights', views.insights, name="insights"),
+    path('inventory', views.inventory, name="inventory"),
+
 
 
     ]
