@@ -200,7 +200,12 @@
 									<td> {{ i.status }} </td>
 									<td> {{ i.delivery_date }} </td>
 									<td> {{ i.total_price }} </td>
-									<td style="color: rgb(15, 202, 24);"> {{ i.confirmed }} </td> 
+									{% if i.confirmed  == True %}
+										<td style="color: rgb(15, 202, 24);"> {{ i.confirmed }} </td>
+									{% else %}
+										<td style="color: rgb(216, 21, 15);"> {{ i.confirmed }} </td>
+
+									{% endif %} 
 								</tr>
 							{% endfor %}
 						</tbody>

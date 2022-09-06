@@ -165,7 +165,7 @@
 			<h1>RETURNS</h1>
 		
 		</header>
-		<div class="delivered">
+		<div class="delivered" style="margin-top: 20px;">
 			<table class="table table-bordered">
 				<thead class="thead-dark">
 					<tr>
@@ -191,13 +191,18 @@
 							<td><a href="https://portal.mftfulfillmentcentre.com/track?org=mft&tracking_no={{ i.order_no  }}" target="_blank">{{ i.order_no  }}</a>  </td>
 							<td> {{ i.name }} </td>
 							<td> {{ i.client_phone }} </td>
-							<td id="delivered" title="{{ i.client_address }}"> {{ i.client_address }} </td>									<td> {{ i.product_name }} </td>
+							<td id="delivered" title="{{ i.client_address }}"> {{ i.client_address }} </td>	
 							<td> {{ i.product_name }} </td>
 							<td> {{ i.delivery_status }} </td>
 							<td> {{ i.status }} </td>
 							<td> {{ i.delivery_date }} </td>
 							<td> {{ i.total_price }} </td>
-							<td style="color: rgb(15, 202, 24);"> {{ i.confirmed }} </td> 
+							{% if i.confirmed  == True %}
+								<td style="color: rgb(15, 202, 24);"> {{ i.confirmed }} </td>
+							{% else %}
+								<td style="color: rgb(216, 21, 15);"> {{ i.confirmed }} </td>
+
+							{% endif %}
 						</tr>
 					{% endfor %}					
 				</tbody>

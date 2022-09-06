@@ -1,0 +1,1 @@
+from dashboard.wsgi import application

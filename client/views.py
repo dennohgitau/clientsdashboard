@@ -11,8 +11,10 @@ url_delivered = "https://app.mftfulfillmentcentre.com/api/orders_status/Delivere
 url_cash = "https://app.mftfulfillmentcentre.com/api/cash"
 url_products = "https://app.mftfulfillmentcentre.com/api/products"
 
+
 payload={'email': 'info@2wtrade.com',
-'password': 'S5E6mBRp'}
+'password': 'S5E6mBRp'
+}
 files=[
 
 ]
@@ -112,7 +114,6 @@ def returns(request):
         context = {'data': context_arr}
     return render(request, 'returns.html', context)
    
-
 
 def cash(request):
     #cash variables
@@ -294,9 +295,5 @@ def inventory(request):
         context = {'data': context_arr}
 
     return render(request, 'inventory.html', context)
-
-
-
-
 
 

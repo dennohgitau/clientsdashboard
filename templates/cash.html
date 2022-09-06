@@ -162,7 +162,6 @@
 	<main class="content-wrap">
 		<header class="content-head">
 			<h1>CASH</h1>
-		
 		</header>
 		
 		<div class="content">
@@ -230,6 +229,9 @@
 	
 		</div>
 	<div class="delivered">
+		<header class="content-head" style="margin-bottom: 15px;">
+			<h1 style="color: green;">DELIVERED ORDERS</h1>
+		</header>
 		<table class="table table-bordered table-striped">
 			<thead class="thead-dark">
 				<tr>
@@ -261,8 +263,14 @@
 						<td> {{ i.status }} </td>
 						<td> {{ i.delivery_date }} </td>
 						<td> {{ i.total_price }} </td>
+						{% if i.confirmed  == True %}
+							<td style="color: rgb(15, 202, 24);"> {{ i.confirmed }} </td>
+						{% else %}
+							<td style="color: rgb(216, 21, 15);"> {{ i.confirmed }} </td>
 
-						<td style="color: rgb(15, 202, 24);"> {{ i.confirmed }} </td> 
+						{% endif %}
+
+						 
 
 					</tr>
 				{% endfor %}					
